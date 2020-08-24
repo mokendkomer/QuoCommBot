@@ -3,8 +3,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const GoogleImages = require("google-images");
 const imgclient = new GoogleImages(
-  "013133145102409425396:p9ej3yw86vy",
-  "AIzaSyBQLLryp7keT10mX9suNBh8EkyHFtK1KbM"
+  config.googleKey1,
+  config.googleKey2
 );
 client.on("ready", () => {
   console.log("ez");
