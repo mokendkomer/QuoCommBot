@@ -3,8 +3,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const GoogleImages = require("google-images");
 const imgclient = new GoogleImages(
-  config.googleKey1,
-  config.googleKey2
+  config.googleCX,
+  config.googleKey
 );
 client.on("ready", () => {
   console.log("ez");
@@ -172,3 +172,4 @@ client.on("message", (message) => {
   }
 });
 client.login(config.token);
+
