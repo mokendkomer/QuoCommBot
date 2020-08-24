@@ -8,11 +8,11 @@ client.on('ready', () => {
 })
 
 client.on("message", (message) => {
-    let gays = JSON.parse(fs.readFileSync('afk.json'));
+    let gays = JSON.parse(fs.readFileSync('../afk.json'));
     if(gays.some(boi => boi.id === message.author.id)){
         let man = gays.find(boi => boi.id === message.author.id);
         gays.splice(gays.findIndex(boi => boi.id === message.author.id), 1)
-        fs.writeFileSync('afk.json', JSON.stringify(gays));
+        fs.writeFileSync('../afk.json', JSON.stringify(gays));
         if(man.mentions.length){
             let mentions = "";
             man.mentions.forEach(mention => mentions = mentions + "\n" + mention)
@@ -26,13 +26,13 @@ client.on("message", (message) => {
                 message.channel.send("`" + gay.tag +'` is afk \n`' + gay.afkMsg + '`');
                 if(!gay.mentions.some(ban => ban === message.author.tag)){
                     gay.mentions.push(message.author.tag)
-                    fs.writeFileSync('afk.json', JSON.stringify(gays));
+                    fs.writeFileSync('../afk.json', JSON.stringify(gays));
                 }
             }
         }))
     }
     if(message.content.toLowerCase().startsWith('q.afk')){
-        fs.writeFileSync('afk.json', JSON.stringify([...JSON.parse(fs.readFileSync('afk.json')), {id: message.author.id, tag: message.author.tag, afkMsg: message.content.substr(6), mentions: []}]));
+        fs.writeFileSync('../afk.json', JSON.stringify([...JSON.parse(fs.readFileSync('../afk.json')), {id: message.author.id, tag: message.author.tag, afkMsg: message.content.substr(6), mentions: []}]));
         message.channel.send("`" + message.author.tag + "` is now afk")
     }
 
