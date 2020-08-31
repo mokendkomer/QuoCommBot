@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 client.on('message', message => {
-    if(message.channel.id === "587321519051636776" && message.content.toLowerCase().includes("q.checkin")){
+    if(message.channel.id === "749244006705397761" && message.content.toLowerCase().includes("q.checkin")){
         try{
             message.channel.send(`
             *How are you feeling today?*\n
