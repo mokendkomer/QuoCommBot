@@ -1,7 +1,7 @@
 const config = require('../config.json');
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const channel = "587321519051636776";
+const channel = "749244006705397761";
 
 client.on('message', message => {
     if(message.channel.id === channel && message.content.toLowerCase().includes("💙")){
