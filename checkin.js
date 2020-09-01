@@ -1,33 +1,20 @@
 const config = require('../config.json');
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const channel = "587321519051636776";
 
 client.on('message', message => {
-    if(message.channel.id === "749244006705397761" && message.content.toLowerCase().includes("q.checkin")){
+    if(message.channel.id === channel && message.content.toLowerCase().includes("💙")){
         try{
-            message.channel.send(`
-            *How are you feeling today?*\n
-            :hearts: - Amazing\n
-            :orange_heart: - Good\n
-            :yellow_heart: - Fine/Okay\n
-            :white_heart: - Neutral\n
-            :black_heart: - I don't know how I'm feeling right now\n
-            :green_heart: - Meh\n
-            :blue_heart: - I'm struggling right now\n
-            :purple_heart: - I'm having a really hard time and need somebody to talk to\n
-            :broken_heart: - I'm at my lowest, and in a really dark place right now\n
-            `).then(sentMessage => {
-                sentMessage.react('❤️');
-                sentMessage.react('🧡');
-                sentMessage.react('💛');
-                sentMessage.react('🤍');
-                sentMessage.react('🖤');
-                sentMessage.react('💚');
-                sentMessage.react('💙');
-                sentMessage.react('💜');
-                sentMessage.react('💔');
-            })
-            message.delete();
+                message.react('❤️');
+                message.react('🧡');
+                message.react('💛');
+                message.react('🤍');
+                message.react('🖤');
+                message.react('💚');
+                message.react('💙');
+                message.react('💜');
+                message.react('💔');
         } catch(err){console.log(err)}
     }
 });
