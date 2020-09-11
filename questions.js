@@ -5,19 +5,22 @@ const roasts = ["My phone battery lasts longer than your relationships.","Oh you
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const axios = require('axios').default;
 client.on('ready', () => {
   console.log("ez");
 })
 client.on("message", (message) => {
   if(message.content.toLowerCase().startsWith('q.question') && message.channel.id === "694884043459657818"){
     message.channel.send("Never have I ever " + never[Math.floor(Math.random() * never.length)].toLowerCase());
-  }
-  if(message.content.toLowerCase().startsWith('q.question') && message.channel.id === "694889876553990164"){
+  } else if(message.content.toLowerCase().startsWith('q.question') && message.channel.id === "694889876553990164"){
     message.channel.send("Would you rather " + rather[Math.floor(Math.random() * rather.length)].toLowerCase());
-  }
-  if(message.content.toLowerCase().startsWith('q.roast')){
+  } else if(message.content.toLowerCase().startsWith('q.roast')){
     message.channel.send(roasts[Math.floor(Math.random() * roasts.length)].toLowerCase());
+  } else if(message.content.toLowerCase().startsWith('q.advice')){
+    axios.get('https://api.adviceslip.com/advice')
+    .then((response) => {
+        message.channel.send(response.data.slip.advice);
+    }) 
   }
-
 });
 client.login(config.token);
