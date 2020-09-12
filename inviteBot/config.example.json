@@ -1,0 +1,57 @@
+{
+	"devToken": "",
+	"sentryDsn": "",
+	"bot": {
+		"type": "regular",
+		"ids": {
+			"regular": "",
+			"pro": ""
+		},
+		"links": {
+			"add": "https://invitemanager.co/add-bot/",
+			"support": "https://discord.gg/Am6p2Hs",
+			"website": "https://andreasgassmann.github.io/discord-invite-manager/",
+			"patreon": "https://www.patreon.com/invitemanager"
+		},
+		"dm": {
+			"guild": "",
+			"channel": ""
+		},
+		"apiAuth": {
+			"username": "",
+			"password": ""
+		},
+		"dblToken": null,
+		"music": {
+			"pollyUrl": ""
+		}
+	},
+	"rabbitmq": {
+		"hostname": "localhost",
+		"username": "guest",
+		"password": "guest",
+		"prefix": ""
+	},
+	"databases": [
+		{
+			"host": "localhost",
+			"port": 3306,
+			"user": "root",
+			"password": "",
+			"range": {
+				"from": 0,
+				"to": 0
+			}
+		},
+		{
+			"host": "localhost",
+			"port": 3306,
+			"user": "root",
+			"password": "",
+			"range": {
+				"from": 1,
+				"to": 1
+			}
+		}
+	]
+}
