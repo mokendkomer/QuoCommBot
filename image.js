@@ -155,11 +155,7 @@ client.on("message", (message) => {
                     });
                 }
                 if (reaction.emoji.name != "⏹️") {
-                  msg.reactions.removeAll();
-                  msg.react("◀️");
-                  msg.react("▶️");
-                  msg.react("⏹️");
-                  msg.react("🔢");
+                  reaction.users.remove(message.author.id)
                 }
               });
               reactionCollector.on("end", () => msg.reactions.removeAll());
