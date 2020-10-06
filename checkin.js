@@ -53,6 +53,16 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
 })
 
+client.on('message',  message => {
+    if(message.channel.id === `697745992463810601` && message.mentions.roles.first() && message.member.permissions.has('MANAGE_MESSAGES')){
+        message.channel.messages.fetchPinned().then(ez => ez.forEach(msg => msg.unpin()));
+        setTimeout(() => {
+            message.pin();
+        }, 500);
+
+    }
+})
+
 client.on('error', err => console.log(err))
 
 client.login(config.canaryToken)
