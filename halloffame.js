@@ -97,8 +97,12 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		  return;
 	  }
 }
-  if (!reaction.me && (reaction.emoji.name === "⭐" && reaction.count === 6) || (reaction.emoji.name === "🏆" && reaction.message.guild.member(user).roles.cache.get('587184713387606017')))
-		finalize('766626502300532743', reaction)
+  if (!reaction.me && (reaction.emoji.name === "⭐" && reaction.count === 2) || (reaction.emoji.name === "🏆" && reaction.message.guild.member(user).roles.cache.get('587184713387606017'))){
+	  if(reaction.emoji.name === "⭐")
+		  finalize('766626502300532743', reaction)
+	  if(reaction.emoji.name === "🏆")
+		  finalize('678682538637525032', reaction)
+  }
 	else if (!user.bot && reaction.emoji.name === "☑️" && reaction.count < 3 && reaction.message.channel.id === "766626502300532743" && reaction.message.guild.member(user).roles.cache.get("587144276891140107")){
 		client.channels.cache.get('678682538637525032').send(reaction.message, {embed: reaction.message.embeds[0]})
 	}
