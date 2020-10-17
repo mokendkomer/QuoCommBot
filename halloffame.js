@@ -34,6 +34,7 @@ const sendEmbed = (message, id) => {
 				ez.react('☑️')
 		})
 		message.react('⭐')
+		message.react('✅')
 	} catch (err) {
 		message.channel.send('Something went wrong')
 	}
@@ -97,7 +98,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		  return;
 	  }
 }
-  if (!reaction.me && (reaction.emoji.name === "⭐" && reaction.count === 2) || (reaction.emoji.name === "🏆" && reaction.message.guild.member(user).roles.cache.get('587184713387606017'))){
+  if (!reaction.me && (reaction.emoji.name === "⭐" && reaction.count === 4) || (reaction.emoji.name === "🏆" && reaction.message.guild.member(user).roles.cache.get('587184713387606017'))){
 	  if(reaction.emoji.name === "⭐")
 		  finalize('766626502300532743', reaction)
 	  if(reaction.emoji.name === "🏆")
