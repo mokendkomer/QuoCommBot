@@ -22,7 +22,7 @@ client.on("message", (message) => {
     }
     else if(message.mentions.users.first()){
         message.mentions.users.forEach(mentioned => gays.forEach(gay => {
-            if(mentioned.id === gay.id){
+            if(mentioned.id === gay.id && message.channel.id !== "590452854242803734"){
                 message.channel.send("`" + gay.tag +'` is afk \n`' + gay.afkMsg + '`');
                 if(!gay.mentions.some(ban => ban === message.author.tag)){
                     gay.mentions.push(message.author.tag)
