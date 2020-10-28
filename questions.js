@@ -6,6 +6,18 @@ const roasts = ["My phone battery lasts longer than your relationships.","Oh you
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const axios = require('axios').default;
+const figlet = require('figlet');
+
+figlet.fonts(function(err, fonts) {
+  if (err) {
+      console.log('something went wrong...');
+      console.dir(err);
+      return;
+  }
+  console.dir(fonts);
+});
+
+
 client.on('ready', () => {
   console.log("ez");
 })
@@ -21,6 +33,22 @@ client.on("message", (message) => {
     .then((response) => {
         message.channel.send(response.data.slip.advice);
     }) 
+  } else if(message.content.toLowerCase().startsWith('q.text')){
+    figlet(message.content.substring(6), {
+      font: 'Ghost',
+      horizontalLayout: 'default',
+      verticalLayout: 'default',
+      width: 80,
+      whitespaceBreak: true
+  }, function(err, data) {
+        if (err) {
+            message.channel.send('Something went wrong');
+            return;
+        } else {
+          message.channel.send(`\`\`\`${data}\`\`\``)
+        }
+    });
+
   }
 });
 client.login(config.token);

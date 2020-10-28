@@ -7,12 +7,19 @@ client.on('ready', () => {
   
 });
 
-client.on('message', (bigMessage) =>{
-  if(bigMessage.author.id === "591006026166173707" && bigMessage.channel.id === "642034738818711563"){
-    bigMessage.react("🧟")
-    bigMessage.react("🎃")
-    bigMessage.react("👻")
-    bigMessage.react("🎂")
+client.on('message', (message) =>{
+  if(message.channel.type === "dm" && !message.author.bot){
+    const embed = new Discord.MessageEmbed();
+    embed.setAuthor(message.author.username, message.author.avatarURL())
+    embed.setTitle(message.content)
+    if(message.attachments.first())
+        embed.setImage(message.attachments.first().url)
+    client.channels.cache.get('771066205195731037').send({embed})
+  } else if(message.author.id === "591006026166173707" && message.channel.id === "642034738818711563"){
+    message.react("🧟")
+    message.react("🎃")
+    message.react("👻")
+    message.react("🎂")
   }
 })
 
