@@ -24,15 +24,10 @@ const getInviteCounts = async guild => {
 }
 client.on('ready', async () => {
     console.log('ready')
-    invites['587139618999369739'] = await getInviteCounts(client.guilds.cache.get('587139618999369739'));
+    invites['641530868267089920'] = await getInviteCounts(client.guilds.cache.get('641530868267089920'));
 });
-client.on('messageReactionAdd', (reaction, user) => {
-    if(reaction.message.guild.id === "587139618999369739"){
-        reaction.message.guild.channels.cache.get("587219379456966701").send(`${user.username} reacted with ${reaction.emoji.name} in ${reaction.message.channel}`)
-    }
-})
 client.on('guildMemberRemove', async (member) => {
-    client.channels.cache.get('626752381417422849').send(`${member.user.username}#${member.user.discriminator} left. Fuck you.`)
+    client.channels.cache.get('713085571769040977').send(`${member.user.username}#${member.user.discriminator} left`)
 })
 client.on('guildMemberAdd', async (member) => {
     const {
@@ -43,7 +38,7 @@ client.on('guildMemberAdd', async (member) => {
     const invitesAfter = await getInviteCounts(guild)
     for (const inviter in invitesAfter) {
         if (invitesBefore[inviter] === invitesAfter[inviter] - 1) {
-            const channelId = '626752381417422849'
+            const channelId = '713085571769040977'
             const channel = guild.channels.cache.get(channelId)
             const count = invitesAfter[inviter]
             channel.send(
@@ -54,8 +49,4 @@ client.on('guildMemberAdd', async (member) => {
         }
     }
 })
-// client.on('message', message => {
-//     if(message.content = "ez")
-//         message.guild.roles.cache.forEach(ez => console.log(ez.name, ez.id))
-// })
-client.login(config.canaryToken)
+client.login(config.maisToken)
