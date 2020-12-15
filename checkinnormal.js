@@ -11,13 +11,8 @@ const doesMatter = (reaction) => {
             reaction.emoji.name === "🖤" ||
             reaction.emoji.name === "💚" ||
             reaction.emoji.name === "💙" ||
-            reaction.emoji.name === "💜" || (
-                reaction.emoji.name === "💔" &&
-                reaction.message.author.id !== "314427251502350337"
-                ) || (
-                    reaction.emoji.name === "MOKENDCRI" &&
-                    reaction.message.author.id === "314427251502350337"
-            )
+            reaction.emoji.name === "💜" ||
+            reaction.emoji.name === "💔"
     )
             return true;
         else
@@ -35,11 +30,8 @@ client.on('message', message => {
                 message.react('💚');
                 message.react('💙');
                 message.react('💜');
-                if(message.author.id === "314427251502350337")
-                    message.react(message.guild.emojis.cache.find(emoji => emoji.name === "MOKENDCRI"));
-                else
-                    message.react('💔')
-            } catch(err){console.log(err)}
+                message.react('💔');
+        } catch(err){console.log(err)}
     }
 });
 
@@ -58,6 +50,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
     
     if(reaction.message.channel.id === channel && !doesMatter(reaction))
         reaction.remove();
+
 })
 
 client.on('message',  message => {
