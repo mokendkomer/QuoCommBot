@@ -58,7 +58,7 @@ client.on('message', async message => {
 		if(message.attachments.array().length)
 			forward(message, client.channels.cache.get('788718012168798219'), `Your tree has been submitted for the contest!`, `Your submission didn't include a picture. Please try again and send a picture of your tree this time`)
 		else
-			forward(message, client.channels.cache.get('788718012168798219'), `Your submission didn't include a picture. Please try again and send a picture of your tree this time`)
+			forward(message, client.channels.cache.get('788718012168798219'), `Your submission didn't include a picture. Please try again and send a picture of your tree this time.`)
 		setTimeout(() => message.delete(), 500)
 	}
 })
