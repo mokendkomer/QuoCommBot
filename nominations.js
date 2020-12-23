@@ -35,7 +35,7 @@ const nominate = (message) => {
 	const embed = new Discord.MessageEmbed();
 	embed.setTitle(`New Nomination`)
 	embed.addField(`Category`, `${category}. ${data[category].name}`)
-	embed.addField(`Nominator`, client.guilds.cache.get('587139618999369739').member(message.author).nickname)
+	embed.addField(`Nominator`, client.guilds.cache.get('587139618999369739').member(message.author).displayName)
 	embed.addField(`Nominee`, nominee)
 	client.channels.cache.get('789172861356343316').send({embed})
 
