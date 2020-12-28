@@ -46,35 +46,5 @@ client.on('messageReactionRemove', async (reaction, user) => {
 		user.send(`You now have lost the Among Us role, and will not be pinged for future games.`)
 	}
 });
-client.on('message', async message => {
-	if (message.author.bot)
-		return;
-	if (message.channel.id === "788716185410601001") {
-		forward(message, client.channels.cache.get('788717896922038282'), `Your letter has been received at the post office!`)
-		setTimeout(() => message.delete(), 500)
-
-	}
-	if (message.channel.id === "788716405411414016") {
-		if(message.attachments.array().length)
-			forward(message, client.channels.cache.get('788718012168798219'), `Your tree has been submitted for the contest!`, `Your submission didn't include a picture. Please try again and send a picture of your tree this time`)
-		else
-			forward(message, client.channels.cache.get('788718012168798219'), `Your submission didn't include a picture. Please try again and send a picture of your tree this time.`)
-		setTimeout(() => message.delete(), 500)
-	}
-})
-
-const forward = async (message, channel, dialog) => {
-		channel.send(`${message.author.tag} sent:`)
-		if(message.content)
-			channel.send(message)
-		if (message.attachments.array().length) {
-			channel.send({ files: [message.attachments.array()[0] ] })
-			// message.attachments.forEach((attachment) => channel.send({
-			// 	files: [attachment]
-			// }))
-		}
-		message.author.send(dialog);
-}
-
 
 client.login(config.maisToken);
