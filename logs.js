@@ -27,6 +27,7 @@ const getInviteCounts = async guild => {
 client.on('ready', async () => {
     console.log('ready')
     invites['587139618999369739'] = await getInviteCounts(client.guilds.cache.get('587139618999369739'));
+    connection.query(`select * from mutes`)
 });
 client.on('messageReactionAdd', (reaction, user) => {
     if(reaction.message.guild.id === "587139618999369739"){
@@ -58,6 +59,7 @@ client.on('guildMemberAdd', async (member) => {
 
     connection.query(`select verified, not isnull(mu.id) as muted from members m left join mutes mu using (id) where id = ?`, [member.id], function (error, result) {
         if(error) console.log(error)
+        console.log(result.length)
         if (!result.length)
             connection.query(`INSERT INTO members (id, name) VALUES (?, ?)`, [member.id, member.displayName])
         else {
