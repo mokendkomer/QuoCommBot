@@ -1,6 +1,8 @@
 const config = require("../config.json")
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const mysql = require('mysql');
+const connection = mysql.createConnection(config.mysql);
 const invites = {}; //{guildId: {memberid: count}}
 const getInviteCounts = async guild => {
     return await new Promise((resolve) => {
@@ -50,12 +52,30 @@ client.on('guildMemberAdd', async (member) => {
                 `<@${id}> joined.\nInvited by ${inviter} (${count} invites)`
             )
             invites[guild.id] = invitesAfter
-            return
+            break;
         }
     }
+
+    connection.query(`select verified, not isnull(mu.id) as muted from members m left join mutes mu using (id) where id = ?`, [member.id], function (error, result) {
+        if (!result.length)
+            connection.query(`INSERT INTO members (id, name) VALUES (?, ?)`, [member.id, member.displayName])
+        else {
+            if (result[0].verified === 1 && result[0].muted === 0) {
+                member.roles.add('587187354851082250')
+            }
+        }
+    });
+
 })
-// client.on('message', message => {
-//     if(message.content = "ez")
-//         message.guild.roles.cache.forEach(ez => console.log(ez.name, ez.id))
-// })
+
+client.on('guildMemberUpdate', (oldMember, newMember) => {
+    if (oldMember.displayName !== newMember.displayName) {
+        connection.query(`UPDATE members SET name = ? WHERE id = ?`, [newMember.displayName, newMember.id])
+    }
+    if (!oldMember.roles.cache.get('587187354851082250') && newMember.roles.cache.get('587187354851082250')) {
+        connection.query(`UPDATE members SET verified = 1 WHERE id = ?`, [newMember.id])
+    }
+})
+
+
 client.login(config.canaryToken)
