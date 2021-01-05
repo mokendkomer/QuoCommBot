@@ -57,6 +57,7 @@ client.on('guildMemberAdd', async (member) => {
     }
 
     connection.query(`select verified, not isnull(mu.id) as muted from members m left join mutes mu using (id) where id = ?`, [member.id], function (error, result) {
+        if(error) console.log(error)
         if (!result.length)
             connection.query(`INSERT INTO members (id, name) VALUES (?, ?)`, [member.id, member.displayName])
         else {
