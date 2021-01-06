@@ -81,10 +81,10 @@ client.on('message', message => {
 		let toMute = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 		if (!message.member.hasPermission("MANAGE_MESSAGES"))
 			return message.channel.send("You do not have the permission to mute someone.");
-		if(toMute.id === message.member.id)
-			return message.channel.send(`Go fuck yourself.`)
-		if (!toMute)
+            if (!toMute)
 			return message.channel.send("You did not mention a user or ID.");
+            if(toMute.id === message.member.id)
+                return message.channel.send(`Go fuck yourself.`)
 		let mutedRole = message.guild.roles.cache.get('751530631489650738')
 		if (toMute.roles.cache.has(mutedRole.id))
 			return message.channel.send("This user is already muted.");
@@ -95,16 +95,16 @@ client.on('message', message => {
 		}
 		if (args[1] && args[2]) {
 			let time = parseInt(args[1])
-			if (time === NaN)
-				return message.channel.send(`${args[1]} is not a number.`);
+			if (isNaN(time))
+            return message.channel.send(`Please enter a valid number.`);
 			if (args[2].startsWith('m'))
 				connection.query(`INSERT INTO mutes VALUES (?, CURRENT_TIMESTAMP() + INTERVAL ? MINUTE)`, [toMute.id, time])
 			else if (args[2].startsWith('h'))
 				connection.query(`INSERT INTO mutes VALUES (?, CURRENT_TIMESTAMP() + INTERVAL ? HOUR)`, [toMute.id, time])
 			else if (args[2].startsWith('d'))
 				connection.query(`INSERT INTO mutes VALUES (?, CURRENT_TIMESTAMP() + INTERVAL ? DAY)`, [toMute.id, time])
-			else return message.channel.send(`${args[2]} is not a unit of time.`);
-			toMute.roles.add(mutedRole)
+                else return message.channel.send(`Please enter a valid unit of time.`);
+                toMute.roles.add(mutedRole)
 			message.channel.send(`${toMute.displayName} has been muted.`)
 		}
 	} else 	if (message.content.toLowerCase().startsWith('q.selfmute')) {
@@ -117,15 +117,15 @@ client.on('message', message => {
 		}
 		if (args[0] && args[1]) {
 			let time = parseInt(args[0])
-			if (time === NaN)
-				return message.channel.send(`${args[0]} is not a number.`);
+			if (isNaN(time))
+				return message.channel.send(`Please enter a valid number.`);
 			if (args[1].startsWith('m'))
 				connection.query(`INSERT INTO mutes VALUES (?, CURRENT_TIMESTAMP() + INTERVAL ? MINUTE)`, [toMute.id, time])
 			else if (args[1].startsWith('h'))
 				connection.query(`INSERT INTO mutes VALUES (?, CURRENT_TIMESTAMP() + INTERVAL ? HOUR)`, [toMute.id, time])
 			else if (args[1].startsWith('d'))
 				connection.query(`INSERT INTO mutes VALUES (?, CURRENT_TIMESTAMP() + INTERVAL ? DAY)`, [toMute.id, time])
-			else return message.channel.send(`${args[1]} is not a unit of time.`);
+			else return message.channel.send(`Please enter a valid unit of time.`);
 			toMute.roles.add(mutedRole)
 			message.channel.send(`You have been muted.`)
 		}
