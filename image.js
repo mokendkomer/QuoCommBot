@@ -9,26 +9,6 @@ const imgclient = new GoogleImages(
 client.on("ready", () => {
   console.log("ez");
 });
-
-client.on("voiceStateUpdate", function (oldMember, newMember) {
-  if (newMember.member.user.bot && newMember.channel) {
-    if (
-      newMember.channel.members.some(
-        (member) => member.user.bot && member.id != newMember.id
-      )
-    )
-      newMember.kick();
-  }
-});
-
-client.on("guildMemberUpdate", function (oldMember, newMember) {
-  if (
-    oldMember.roles.highest.id != "587187354851082250" &&
-    newMember.roles.highest.id === "587187354851082250"
-  )
-    client.channels.cache.get('587152863373819904').send("Welcome to QuoComm <@" + newMember.id + "> \nBe sure to <#587156775346765834>");
-});
-
 client.on("message", (message) => {
   if (
     message.content.toLowerCase().startsWith("q.img ") ||

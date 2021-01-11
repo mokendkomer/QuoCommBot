@@ -65,11 +65,14 @@ client.on('guildMemberAdd', async (member) => {
         }
     }
 
-    connection.query(`select verified, not isnull(mu.id) as muted from members m left join mutes mu using (id) where id = ?`, [member.id], function (error, result) {
+    connection.query(`select verified, not isnull(mu.id) as muted, name from members m left join mutes mu using (id) where id = ?`, [member.id], function (error, result) {
         if (!result.length)
             connection.query(`INSERT INTO members (id, name) VALUES (?, ?)`, [member.id, member.displayName])
         else {
             if (result[0].verified === 1 && result[0].muted === 0) {
+				console.log(result[0].verified, result[0].muted, result[0].name)
+				member.setNickname(result[0].name)
+				member.roles.remove('780442815016599634')
                 member.roles.add('587187354851082250')
             }
         }
@@ -146,7 +149,8 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
     if (oldMember.displayName !== newMember.displayName) {
         connection.query(`UPDATE members SET name = ? WHERE id = ?`, [newMember.displayName, newMember.id])
     } else if (!oldMember.roles.cache.get('587187354851082250') && newMember.roles.cache.get('587187354851082250')) {
-        connection.query(`UPDATE members SET verified = 1 WHERE id = ?`, [newMember.id])
+		connection.query(`UPDATE members SET verified = 1 WHERE id = ?`, [newMember.id])
+		client.channels.cache.get('587152863373819904').send("Welcome to QuoComm <@" + newMember.id + "> \nBe sure to <#587156775346765834>");
     } else if (!oldMember.roles.cache.get('751530631489650738') && newMember.roles.cache.get('751530631489650738')) {
 		newMember.send(`You have been muted.`)
 		connection.query(`INSERT INTO mutes VALUES (?, NULL)`, [newMember.id], (err) => {
@@ -159,6 +163,15 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
 		})
 	}
 })
-
+client.on("voiceStateUpdate", function (oldMember, newMember) {
+	if (newMember.member.user.bot && newMember.channel) {
+	  if (
+		newMember.channel.members.some(
+		  (member) => member.user.bot && member.id != newMember.id
+		)
+	  )
+		newMember.kick();
+	}
+  });
 
 client.login(config.canaryToken)
