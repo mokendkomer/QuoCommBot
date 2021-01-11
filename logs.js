@@ -164,14 +164,8 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
 	}
 })
 client.on("voiceStateUpdate", function (oldMember, newMember) {
-	if (newMember.member.user.bot && newMember.channel) {
-	  if (
-		newMember.channel.members.some(
-		  (member) => member.user.bot && member.id != newMember.id
-		)
-	  )
+	if (newMember.member.user.bot && newMember.channel && newMember.channel.members.some((member) => member.user.bot && member.id != newMember.id))
 		newMember.kick();
-	}
-  });
+ });
 
 client.login(config.canaryToken)
