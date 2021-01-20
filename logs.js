@@ -29,10 +29,13 @@ client.on('ready', async () => {
     invites['587139618999369739'] = await getInviteCounts(client.guilds.cache.get('587139618999369739'));
     client.setInterval(() => {
 		connection.query(`select id from mutes where current_timestamp() > time`, function (error, result) {
-			console.log(result)
 			result.forEach(ele => {
-				const muted = client.guilds.cache.get('587139618999369739').members.cache.get(ele.id)
-				muted.roles.remove('751530631489650738')
+        const muted = client.guilds.cache.get('587139618999369739').members.cache.get(ele.id)
+        if(muted)
+          muted.roles.remove('751530631489650738')
+        else
+          connection.query(`DELETE FROM mutes WHERE id = ?`, [ele.id])
+
 			})
 		});
 	}, 60000);
