@@ -83,6 +83,10 @@ client.on('guildMemberAdd', async (member) => {
     });
 })
 client.on('message', message => {
+	if(message.content.toLowerCase().startsWith('q.sarah')){
+		message.channel.send(`How you feel is valid, and it’s wrong of someone to suggest otherwise`)
+		return;
+	}
 	if (message.content.toLowerCase().startsWith('q.mute')) {
 		let args = message.content.toLowerCase().split(" ").slice(1);
 		let toMute = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
