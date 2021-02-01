@@ -32,6 +32,8 @@ client.on("message", (message) => {
         }))
     }
     if(message.content.toLowerCase().startsWith('q.afk')){
+        if(message.channel.id !== "587152950078734348" && message.channel.id !== "639903079973781514")
+            return message.channel.send(`That's not allowed. Try running this again in <#587152950078734348>.`);
         fs.writeFileSync('../afk.json', JSON.stringify([...JSON.parse(fs.readFileSync('../afk.json')), {id: message.author.id, tag: message.author.tag, afkMsg: message.content.substr(6), mentions: []}]));
         message.channel.send("`" + message.author.tag + "` is now afk")
     }
