@@ -74,10 +74,14 @@ client.on('guildMemberAdd', async (member) => {
             connection.query(`INSERT INTO members (id, name) VALUES (?, ?)`, [member.id, member.displayName])
         else {
             if (result[0].verified === 1 && result[0].muted === 0) {
-				console.log(result[0].verified, result[0].muted, result[0].name)
 				member.setNickname(result[0].name)
 				member.roles.remove('780442815016599634')
-                member.roles.add('587187354851082250')
+				member.roles.add('587187354851082250')
+				setTimeout(() => {
+					member.guild.channels.cache.get('587744410498760707').messages.fetch({ limit: 1 }).then(messages => {
+						messages.first().delete();
+					}, 2000)
+				})
             }
         }
     });
