@@ -22,6 +22,13 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
+    if((message.author.id === "689377680210264075" || message.author.id === "314427251502350337") && message.content.toLowerCase().startsWith('q.ban') && message.mentions.members.size){
+        let embed = new Discord.MessageEmbed();
+        embed.title = `${message.mentions.members.first().displayName} has been banned`
+        message.channel.send({embed})
+        embed.title = `Just kidding, they're right here`
+        setTimeout(() => message.channel.send({embed}), 10000)
+    }
     if(message.channel.id === '587152863373819904' && message.author.id !== client.user.id)
     resetTimer();   
     if(message.channel.id === '587152863373819904' && message.content.toLowerCase() === "q.aliven"){
