@@ -39,7 +39,7 @@ client.on('message', async message => {
 	}
 	if (message.content.toLowerCase().startsWith(`q.getprompt`) && mods.includes(message.author.id)) {
 		const prompts = require('../checkin.json')
-		message.channel.send(prompts.find(ez => ez.id === message.author.id).prompt)
+		message.channel.send(`Your prompt is: \`\`\`${prompts.find(ez => ez.id === message.author.id).prompt}\`\`\``)
 	}
 	if (message.content === "q.startsim" && mods.includes(message.author.id)) {
 		message.channel.send(`:warning: Test simulation started. Stay alert.`)
