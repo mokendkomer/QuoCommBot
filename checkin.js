@@ -95,7 +95,7 @@ cron.schedule('0 15 * * *', async () => {
 });
 
 cron.schedule('0 17 * * *', async () => {
-	if (!await shouldRemind)
+	if (!await shouldRemind())
 		return;
 	const mod = client.guilds.cache.get('587139618999369739').member(mods[new Date().getDay()])
 	const prompts = require('../checkin.json')
