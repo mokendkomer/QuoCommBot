@@ -73,7 +73,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
 	if (reaction.emoji.name === "⚪" && reaction.message.channel.type === "dm" && mods.includes(user.id)) {
 		const prompts = require('../checkin.json')
-		const prompt = `${defaultPrompt} \n\n ${prompts.find(ez => ez.id === user.id).prompt}`
+		const prompt = `${defaultPrompt} \n\n${prompts.find(ez => ez.id === user.id).prompt}`
 
 		webhook.send(prompt, {
 			username: client.guilds.cache.get('587139618999369739').member(user.id).nickname,
@@ -99,7 +99,7 @@ cron.schedule('0 17 * * *', async () => {
 		return;
 	const mod = client.guilds.cache.get('587139618999369739').member(mods[new Date().getDay()])
 	const prompts = require('../checkin.json')
-	const prompt = `${defaultPrompt} \n\n ${prompts.find(ez => ez.id === mod.id).prompt}`
+	const prompt = `${defaultPrompt} \n\n${prompts.find(ez => ez.id === mod.id).prompt}`
 	webhook.send(prompt, {
 		username: mod.displayName,
 		avatarURL: mod.user.avatarURL()
